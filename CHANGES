@@ -9,5 +9,10 @@ Changelog for Lingua::Alphabet::Phonetic::Password
 
      Initial release to CPAN
 
+0.11 Tuesday, November 30th, 2004
+
+     0.10 was corrupted on upload.  I had to bump $VERSION because
+     PAUSE won't let you upload the same named file twice.
+
 #
 # EOF

@@ -15,7 +15,7 @@ BEGIN {
 
 # the expected package and version
 my $package = 'Lingua::Alphabet::Phonetic::Password';
-my $expected = '0.10';
+my $expected = '0.11';
 
 # pull in the package
 use_ok($package);
