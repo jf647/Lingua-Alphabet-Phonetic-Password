@@ -12,6 +12,8 @@ Module::Build->new(
     create_makefile_pl => 'traditional',
     create_readme      => 1,
     requires => {
+        Lingua::Alphabet::Phonetic       => 1.03,
+        Lingua::Alphabet::Phonetic::NATO => 1.02,
     },
     build_requires => {
         Test::More          => 0,

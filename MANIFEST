@@ -1,0 +1,9 @@
+Build.PL
+lib/Lingua/Alphabet/Phonetic/Password.pm
+MANIFEST			This list of files
+t/01_use.t
+t/02_pod.t
+t/03_pod_coverage.t
+t/04_breakpoints.t
+t/05_basic.t
+META.yml

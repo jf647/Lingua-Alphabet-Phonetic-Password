@@ -95,6 +95,18 @@ use base 'Lingua::Alphabet::Phonetic';
 # our version
 our $VERSION = '0.10';
 
+# a Lingua::Alphabet::Phonetic::NATO object for use later
+my $nato;
+eval { $nato = Lingua::Alphabet::Phonetic->new('NATO') };
+if( $@ ) {
+    require Carp;
+    Carp::croak "cannot instantiate Lingua::Alphabet::" .
+                "Phonetic::NATO object: $@";
+}
+
+# regex to determine if a character is uppercase
+my $isupper = qr/^[[:upper:]]$/;
+
 # number to name mappings
 my %number_map = (
     0 => 'Zero',
@@ -109,8 +121,8 @@ my %number_map = (
     9 => 'Nine',
 );
 
-# character to name mappings
-my %character_map = (
+# special character to name mappings
+my %special_map = (
     '@' => 'At',
     '?' => 'Question',
     '_' => 'Underscore',
@@ -123,13 +135,14 @@ my %character_map = (
     '=' => 'Equals',
     '"' => 'DoubleQuote',
     '%' => 'Percent',
-    ''' => 'SingleQuote',
+    '$' => 'Dollars',
+    q/'/ => 'SingleQuote',
     '(' => 'LeftParens',
     ')' => 'RightParens',
     ',' => 'Comma',
     '.' => 'Period',
     '/' => 'ForeSlash',
-    '\' => 'BackSlash',
+    '\\' => 'BackSlash',
     ':' => 'Colon',
     ';' => 'SemiColon',
     '<' => 'LessThan',
@@ -147,7 +160,39 @@ my %character_map = (
 sub _name_of_letter
 {
 
+    my $self = shift;
+    my $s = shift;
+    # If we get more than one character, ignore the rest:
+    my $c = substr($s, 0, 1);
     
+    my $word;
+    
+    # first we handle special characters
+    if( exists $special_map{$c} ) {
+        $word = $special_map{$c};
+    }
+    
+    # then numbers
+    elsif( exists $number_map{$c} ) {
+        $word = $number_map{$c};
+    }
+
+    # then if it's in the NATO dictionary, we upper or lowercase
+    elsif( ($word = ($nato->enunciate($c))[0]) && $word ne $c ) {
+        if( $c =~ m/$isupper/ ) {
+            $word = uc $word;
+        }
+        else {
+            $word = lc $word;
+        }
+    }
+
+    # otherwise we dispatch back to our base class
+    else {
+        $word = $self->SUPER::_name_of_letter($c);
+    }
+    
+    return $word;
 
 }
 
@@ -161,23 +206,16 @@ __END__
 =head1 INSPIRATION
 
 This module was inspired by the web-based password generator at
-http://www.winguides.com/security/password.php.  In particular, the words
-used for special characters are the same as used by that application.  This
-module supports more special characters than the passwords which that
+http://www.winguides.com/security/password.php. In particular, the words
+used for special characters are the same as used by that application
+whenever possible. Some translations, like the character C<x> are different
+because this module uses Lingua::Alphabet::Phonetic to do the heavy lifting
+for alphabetic characters. In that module, C<x> is rendered as C<xray>, but
+winguides.com reders it as C<x-ray>. C'est la vie.
+
+This module supports more special characters than the passwords which that
 application generates, so any liberties taken with these characters are my
 own.
-
-=head1 TODO
-
-=over 4
-
-=item * unit tests
-
-this module was born out of an urgent need.  I thus broke one of my
-supposedly golden rules by releasing it to CPAN with only a perfunctory test
-suite.
-
-=back
 
 =head1 SEE ALSO
 
@@ -187,6 +225,11 @@ module serves as a dictionary.
 =head1 AUTHOR
 
 James FitzGibbon, E<lt>jfitz@CPAN.orgE<gt>.
+
+=head1 CREDITS
+
+Martin Thurn for writing Lingua::Alphabet::Phonetic. The interface was
+pleasantly simple to extend.
 
 =head1 COPYRIGHT
 
