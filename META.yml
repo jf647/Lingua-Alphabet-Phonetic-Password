@@ -18,4 +18,4 @@ provides:
   Lingua::Alphabet::Phonetic::Password:
     file: lib/Lingua/Alphabet/Phonetic/Password.pm
     version: 0.10
-generated_by: Module::Build version 0.2604
+generated_by: Module::Build version 0.25_02
