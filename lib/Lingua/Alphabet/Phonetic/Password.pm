@@ -93,7 +93,7 @@ use 5.006_001;
 use base 'Lingua::Alphabet::Phonetic';
 
 # our version
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 # a Lingua::Alphabet::Phonetic::NATO object for use later
 my $nato;

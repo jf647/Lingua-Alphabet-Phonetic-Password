@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: Lingua-Alphabet-Phonetic-Password
-version: 0.10
+version: 0.11
 author:
   - James FitzGibbon, E<lt>jfitz@CPAN.orgE<gt>.
 abstract: enunciate a password as words
@@ -17,5 +17,5 @@ build_requires:
 provides:
   Lingua::Alphabet::Phonetic::Password:
     file: lib/Lingua/Alphabet/Phonetic/Password.pm
-    version: 0.10
-generated_by: Module::Build version 0.2604
+    version: 0.11
+generated_by: Module::Build version 0.25_02

@@ -2,18 +2,18 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'PL_FILES' => {},
-          'INSTALLDIRS' => 'site',
           'NAME' => 'Lingua::Alphabet::Phonetic::Password',
           'VERSION_FROM' => 'lib/Lingua/Alphabet/Phonetic/Password.pm',
           'PREREQ_PM' => {
-                           'Test::More' => 0,
-                           'Test::Pod::Coverage' => 0,
-                           'Test::Exception' => 0,
-                           'Test::NoBreakpoints' => 0,
-                           'Test::Pod' => 0,
+                           'Lingua::Alphabet::Phonetic' => '1.03',
                            'Lingua::Alphabet::Phonetic::NATO' => '1.02',
-                           'Lingua::Alphabet::Phonetic' => '1.03'
-                         }
+                           'Test::Exception' => '0',
+                           'Test::More' => '0',
+                           'Test::NoBreakpoints' => '0',
+                           'Test::Pod' => '0',
+                           'Test::Pod::Coverage' => '0'
+                         },
+          'INSTALLDIRS' => 'site',
+          'PL_FILES' => {}
         )
 ;
